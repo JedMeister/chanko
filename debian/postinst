@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+FAB_PATH=${FAB_PATH:-/turnkey/fab}
+CODENAME=$(lsb_release -cs)
+POOL_PATH=$FAB_PATH/pools/$CODENAME
+CHANKO_PATH=$FAB_PATH/chankos/$CODENAME.chanko
+
+if which pool >/dev/null ; then
+    if [ -d "$POOL_PATH" ]; then
+        cd $POOL_PATH
+        pool-register $CHANKO_PATH/archives/
+    fi
+fi
+
+#DEBHELPER#
+
+exit 0
